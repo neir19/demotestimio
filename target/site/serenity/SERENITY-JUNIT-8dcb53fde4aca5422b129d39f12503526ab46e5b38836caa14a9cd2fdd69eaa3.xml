@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><testsuite errors="0" failures="0" name="Reserva de viaje en Testim.io" skipped="2" tests="2" time="1.14" timestamp="2026-06-11 10:29:15"><testcase name="Reservar un viaje exitosamente"><compromised message="No page defined with the name 'null'" type="net.serenitybdd.screenplay.actions.UnknownPageException">No page defined with the name 'null'</compromised><system-err>No page defined with the name 'null'&#13;
+org.example.stepdefinitions.ReservaViajeStepDefinitions.elUsuarioEstaEnLaPaginaDeInicio(ReservaViajeStepDefinitions.java:20)&#13;
+✽.el usuario esta en la pagina de inicio(classpath:features/reserva_viaje.feature:7)&#13;
+</system-err></testcase></testsuite>

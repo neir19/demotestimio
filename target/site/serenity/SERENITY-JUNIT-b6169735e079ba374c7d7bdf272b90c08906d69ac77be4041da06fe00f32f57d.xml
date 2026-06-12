@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><testsuite errors="0" failures="2" name="Reserva de viaje en Testim.io" skipped="1" tests="3" time="64.53" timestamp="2026-06-12 01:40:10"><testcase name="Reservar un viaje exitosamente"><failure message="&#13;&#10;Expected: an element that is enabled&#13;&#10;     but: the element identified by [[ChromeDriver: chrome on windows (2358f1ee7b321962bf92b288ad8c7221)] -&gt; xpath: //button[contains(@class,'OrderSummary__pay-button')]] [PAY NOW] was not enabled" type="java.lang.AssertionError">&#13;
+Expected: an element that is enabled&#13;
+     but: the element identified by [[ChromeDriver: chrome on windows (2358f1ee7b321962bf92b288ad8c7221)] -&gt; xpath: //button[contains(@class,'OrderSummary__pay-button')]] [PAY NOW] was not enabled</failure><system-err>&#13;
+Expected: an element that is enabled&#13;
+     but: the element identified by [[ChromeDriver: chrome on windows (2358f1ee7b321962bf92b288ad8c7221)] -&gt; xpath: //button[contains(@class,'OrderSummary__pay-button')]] [PAY NOW] was not enabled&#13;
+org.example.tasks.RealizarPago.performAs(RealizarPago.java:20)&#13;
+org.example.stepdefinitions.ReservaViajeStepDefinitions.realizarPago(ReservaViajeStepDefinitions.java:82)&#13;
+worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)&#13;
+worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)&#13;
+</system-err></testcase></testsuite>
