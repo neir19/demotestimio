@@ -60,5 +60,5 @@ src/
 
 Ver la carpeta [`Docs/`](Docs/) para:
 - [Uso de IA](Docs/UsoIA.md)
-- [Casos de Prueba](Docs/Casos de Prueba.md)
-- [Reporte de Bugs](Docs/Reporte de Bugs.md)
+- [Casos de Prueba](Docs/CasosDePrueba.md)
+- [Reporte de Bugs](Docs/ReporteDeBugs.md)
