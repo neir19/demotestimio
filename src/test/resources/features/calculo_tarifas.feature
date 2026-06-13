@@ -5,12 +5,12 @@ Feature: Calculo de tarifas
   @CalculoTarifas @Regresion
   Scenario Outline: Calcular correctamente el precio para multiples pasajeros
     Given que el usuario selecciono un vuelo disponible
-    When agrega <pasajeros> pasajeros a la reserva
+    When agrega <pasajeros> pasajeros y <ninos> ninos a la reserva
     Then el sistema debe actualizar el valor total
-    And el precio debe corresponder a la cantidad de pasajeros seleccionados
+    And el precio debe corresponder a la cantidad de pasajeros  <pasajeros> pasajeros y <ninos> ninos seleccionados
 
     Examples:
-      | pasajeros |
-      | 1         |
-      | 2         |
-      | 3         |
+      | pasajeros | ninos |
+      | 4         | 1     |
+      | 2         | 2     |
+      | 3         | 3     |

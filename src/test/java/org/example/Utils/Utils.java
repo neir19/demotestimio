@@ -57,6 +57,12 @@ public abstract class Utils {
             );
         }
     }
+    public static double extraerValorNumerico(String texto) {
+        if (texto == null || texto.isBlank()) {
+            return 0;
+        }
+        return Double.parseDouble(texto.replaceAll("[^\\d.]", ""));
+    }
 }
 
 

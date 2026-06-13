@@ -13,4 +13,5 @@ public class PaginaDestinos {
     public static final Target PRICE_SLIDER_HANDLE = Target.the("Control de la barra de precios")
             .located(By.xpath("//div[contains(@class, 'theme__progress___xkm0P PurpleSlider__progress___5_ybD')]"));
     public static final Target CAMPO_VALOR= Target.the("campo valor de los card").located(By.xpath("//span[contains(text(),'$')]"));
+    public static final  Target CAMPO_TITULO_DESTINO= Target.the("campo con el nombre de los destinos").located(By.xpath("//h5[@class='theme__title___35Wsy']"));
 }

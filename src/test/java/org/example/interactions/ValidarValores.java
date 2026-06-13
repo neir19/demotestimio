@@ -5,6 +5,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Interaction;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Tasks;
+import net.serenitybdd.screenplay.ensure.Ensure;
 import org.example.ui.PaginaDestinos;
 
 
@@ -12,10 +13,10 @@ import static net.serenitybdd.screenplay.ensure.Ensure.that;
 import java.util.List;
 
 public class ValidarValores implements Interaction {
-    private  int valor;
+    private  double valor;
 
     public ValidarValores(String valor) {
-        this.valor = Integer.parseInt(valor);
+        this.valor = Double.parseDouble(valor);
     }
 
     @Override
@@ -31,19 +32,7 @@ public class ValidarValores implements Interaction {
             );
 
             System.out.println("Valor: "+precio+" debe ser menor que o igual que "+valor);
-
-
-
-
-
-
-            if (precio >valor) {
-                throw new AssertionError(
-                        "Se encontró un valor mayor"
-                );
-            }
-
-      actor.attemptsTo(Ensure);
+            actor.attemptsTo(Ensure.that(precio).isLessThan(valor));
 
 
         }

@@ -25,9 +25,9 @@ public class PaginaFormulario {
     public static final  Target BOTON_APLICAR_CODE= Target.the("botón para apicar promocional").located(By.xpath("//button[text()= 'Apply']"));
 
     public static final Target TOTAL_PRICE = Target.the("Precio total en el resumen de la orden")
-            .located(By.xpath("//div[contains(@class,'OrderSummary__total')]//span[contains(@class,'price')]"));
+            .located(By.xpath("//strong[contains(text(),'$')]"));
     public static final Target PRICE_PER_PASSENGER = Target.the("Precio por pasajero en el resumen")
-            .located(By.xpath("//div[contains(@class,'OrderSummary__item')]//span[contains(@class,'price')]"));
+            .located(By.xpath("//div[contains(text(),'$')]"));
     public static final Target ORDER_SUMMARY_PASSENGERS = Target.the("Cantidad de pasajeros en el resumen")
             .located(By.xpath("//div[contains(@class,'OrderSummary__item')]//span[contains(@class,'label')]"));
 }

@@ -2,8 +2,13 @@ package org.example.questions;
 
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Question;
+import net.serenitybdd.screenplay.actions.Scroll;
 import net.serenitybdd.screenplay.questions.Text;
+import org.example.Utils.Utils;
 import org.example.ui.PaginaFormulario;
+import org.openqa.selenium.devtools.v129.dom.model.ScrollOrientation;
+
+import static org.example.Utils.Utils.extraerValorNumerico;
 
 public class PrecioPorPasajero implements Question<Boolean> {
     private final int pasajerosEsperados;
@@ -18,6 +23,7 @@ public class PrecioPorPasajero implements Question<Boolean> {
 
     @Override
     public Boolean answeredBy(Actor actor) {
+        actor.attemptsTo(Scroll.to(PaginaFormulario.PRICE_PER_PASSENGER));
         String totalTexto = Text.of(PaginaFormulario.TOTAL_PRICE).answeredBy(actor);
         String unitarioTexto = Text.of(PaginaFormulario.PRICE_PER_PASSENGER).answeredBy(actor);
 
@@ -32,10 +38,5 @@ public class PrecioPorPasajero implements Question<Boolean> {
         return Math.abs(total - esperado) < 0.01;
     }
 
-    private double extraerValorNumerico(String texto) {
-        if (texto == null || texto.isBlank()) {
-            return 0;
-        }
-        return Double.parseDouble(texto.replaceAll("[^\\d.]", ""));
-    }
+
 }

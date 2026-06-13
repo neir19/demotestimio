@@ -27,6 +27,10 @@ public class FiltrarPorPrecioStepDefinitions {
         theActorInTheSpotlight().attemptsTo(
             CargarMasDestinos.ahora()
         );
+        System.out.println(
+                "Thread: " +
+                        Thread.currentThread().getName()
+        );
     }
 
     @Cuando("el usuario ajusta el filtro de precio maximo a {string} dolares")
