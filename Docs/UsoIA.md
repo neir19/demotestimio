@@ -20,7 +20,7 @@ Durante el desarrollo se evaluaron dos enfoques:
 
 ### Enfoque 1
 Generar toda la automatización mediante un único prompt.
-#### Como se hizo
+#### ¿Cómo se hizo?
 Una vez evidenciado el caso de prueba principal de la prueba, se generó un prompt básico:
 "Actúa como un experto en Java y gradle. Módifica el proyecto para que sea una automatización de  serenity bdd  con gradle  modifica el archivo build.gradle   para que corra el  proyecto con  Screenplay y Cucumber para el jdk 17.0.17 . Incluye las dependencias necesarias para realizar pruebas web (Serenity) y configura  para habilitar la ejecución paralela de escenarios.
 Crea un archivo .feature utilizando Gherkin para la funcionalidad de agendar un viaje en https://demo.testim.io/. Incluye un Scenario Outline que parametrize: fecha de partida, fecha de regreso, cantidad de adultos, niños, rango de precio, destino, código promocional y los datos personales (nombre, email, Social Security Number, teléfono(el número de teléfono debe iniciar con +1787 y 7 dígitos más) y cargar un archivo el cual se escoja la ubicación. El flujo debe seguir los pasos: seleccionar destino tomando la  información  ingresada anteriormente, cargar más, filtrar por precio modificando el precio mayor, llenar formulario, adjuntar archivo que yo le daré la ubicación de donde está guardado, aceptar términos y pagar, validando el mensaje 'Destination Booked'
@@ -61,7 +61,7 @@ Se seleccionó el segundo enfoque debido a:
 - Correcciones más rápidas.
 - Menor generación de código innecesario.
 
-Con este principio se realizó la creación de cada caso escenario crítico individual con el siguiente prompt donde únicamente se cambiaba el feature:
+Con este principio se realizó la creación de cada  escenario crítico individual con el siguiente prompt donde únicamente se cambiaba el feature:
 Actúa como un Arquitecto de Automatización Senior especializado en Serenity BDD, Screenplay, Cucumber, Gradle y Java 17.Genera una solución empresarial siguiendo estrictamente los principios de Clean Code, SOLID, Screenplay  y separación de responsabilidades.teniendo el gherkin :
 Feature: Inicio de sesión
 

@@ -1,6 +1,6 @@
 # CASOS DE PRUEBA:
 A continuación, presento una matriz de casos de prueba enfocados en flujos alternos, negativos y de borde, diseñados para maximizar la cobertura y detectar fallos críticos que el flujo feliz suele omitir.
-1. Funcionalidad: Fechas de Viaje
+## 1. Funcionalidad: Fechas de Viaje
    NOMBRE
    Selección de fecha de viaje en el pasado.
 
@@ -20,7 +20,7 @@ El sistema deshabilita las fechas pasadas.
 No se permite la selección de la fecha.
 El sistema muestra un mensaje de error o impide el avance.
 
-2. Funcionalidad: Filtro de Precios
+## 2. Funcionalidad: Filtro de Precios
    NOMBRE
    Aplicación de filtro de precio máximo inferior al precio mínimo de los destinos.
 
@@ -39,7 +39,7 @@ La lista de destinos se actualiza y queda vacía.
 Se muestra un mensaje informativo indicando que no hay resultados para el filtro aplicado.
 La experiencia de usuario es consistente.
 
-3. Funcionalidad: Cantidad de Pasajeros
+## 3. Funcionalidad: Cantidad de Pasajeros
    NOMBRE
    Selección de cantidad máxima de pasajeros permitida por destino.
 
@@ -57,7 +57,7 @@ RESULTADOS ESPERADOS
 El dropdown solo ofrece opciones válidas según la capacidad del sistema.
 Cualquier intento de inyectar un valor superior vía consola es rechazado por el backend o validación de formulario.
 
-4. Funcionalidad: Formulario de Datos Personales (Email)
+## 4. Funcionalidad: Formulario de Datos Personales (Email)
    NOMBRE
    Ingreso de formato de correo electrónico inválido.
 
@@ -76,7 +76,7 @@ RESULTADOS ESPERADOS
 El campo marca error de validación inmediato.
 El botón "Pay Now" permanece deshabilitado.
 
-5. Funcionalidad: Carga de Archivos
+## 5. Funcionalidad: Carga de Archivos
    NOMBRE
    Carga de un archivo con extensión no permitida.
 
@@ -95,7 +95,7 @@ El sistema rechaza la carga del archivo.
 Se muestra un mensaje de error claro indicando los formatos permitidos.
 El formulario no permite enviar la reserva con un archivo inválido.
 
-6. Funcionalidad: Código Promocional
+## 6. Funcionalidad: Código Promocional
    NOMBRE
    Aplicación de código promocional expirado o inexistente.
 
@@ -113,7 +113,7 @@ RESULTADOS ESPERADOS
 El sistema muestra un mensaje de "Código inválido o expirado".
 El precio total del viaje no sufre modificaciones.
 
-7. Funcionalidad: Aceptación de Términos
+## 7. Funcionalidad: Aceptación de Términos
    NOMBRE
    Intento de pago sin aceptar términos y condiciones.
 
@@ -131,7 +131,7 @@ RESULTADOS ESPERADOS
 El sistema bloquea la transacción.
 Se resalta el checkbox de términos como campo obligatorio pendiente.
 
-8. Funcionalidad: Pago (Validación de robustez)
+## 8. Funcionalidad: Pago (Validación de robustez)
    NOMBRE
    Doble clic rápido en el botón de pago.
 
@@ -149,7 +149,7 @@ El sistema deshabilita el botón inmediatamente después del primer clic para ev
 Solo se procesa una única reserva.
 
 
-###PROMPT
+# PROMPT
 Actúa como un Analista de Pruebas Senior especializado en diseño de casos de prueba funcionales, pruebas exploratorias y técnicas ISTQB.
 
 Analiza exhaustivamente la aplicación web https://demo.testim.io/ e identifica todas las funcionalidades, reglas de negocio, validaciones, restricciones y flujos alternos disponibles para el usuario.

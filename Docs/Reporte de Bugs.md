@@ -152,3 +152,4 @@ RESULTADO ESPERADO
 Descripción precisa del comportamiento esperado.
 Descripción del bug:
 Falta un campo limpiar para  los campos  launch y planet Color, debido a que si ingresa una busqueda y la quiere quitar no existe forma de hacerlo
+Descripción del bug:
