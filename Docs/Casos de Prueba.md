@@ -149,7 +149,7 @@ El sistema deshabilita el botón inmediatamente después del primer clic para ev
 Solo se procesa una única reserva.
 
 
-###PROMPT
+# PROMPT
 Actúa como un Analista de Pruebas Senior especializado en diseño de casos de prueba funcionales, pruebas exploratorias y técnicas ISTQB.
 
 Analiza exhaustivamente la aplicación web https://demo.testim.io/ e identifica todas las funcionalidades, reglas de negocio, validaciones, restricciones y flujos alternos disponibles para el usuario.
