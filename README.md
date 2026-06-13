@@ -15,7 +15,7 @@ Automatización de pruebas para la aplicación [demo.testim.io](https://demo.tes
 
 Esto ejecutará todos los escenarios en paralelo (2 hilos) y generará el reporte de Serenity en `target/site/serenity/index.html`.
 
-> **Paralelismo:** configurado desde [`junit-platform.properties`](src/test/resources/junit-platform.properties) con `cucumber.execution.parallel.enabled=true`, `cucumber.execution.parallel.config.strategy=fixed` y `cucumber.execution.parallel.config.fixed.parallelism=2`.
+> **Paralelismo:** configurado desde [`junit-platform.properties`](src/test/resources/junit-platform.properties) donde  `cucumber.execution.parallel.enabled=true` nos dice si se va ejecutar en paralelo o no,  `cucumber.execution.parallel.config.fixed.parallelism=2` cuantas instancias se van a abrir de inicio y `cucumber.execution.parallel.config.fixed.max-pool-size=2` el máximo de instancias permitidas para abrirse
 
 ## 📁 Estructura del proyecto
 
