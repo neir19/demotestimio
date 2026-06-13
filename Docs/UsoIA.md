@@ -61,7 +61,7 @@ Se seleccionó el segundo enfoque debido a:
 - Correcciones más rápidas.
 - Menor generación de código innecesario.
 
-Con este principio se realizó la creación de cada caso escenario crítico individual con el siguiente prompt donde únicamente se cambiaba el feature:
+Con este principio se realizó la creación de cada  escenario crítico individual con el siguiente prompt donde únicamente se cambiaba el feature:
 Actúa como un Arquitecto de Automatización Senior especializado en Serenity BDD, Screenplay, Cucumber, Gradle y Java 17.Genera una solución empresarial siguiendo estrictamente los principios de Clean Code, SOLID, Screenplay  y separación de responsabilidades.teniendo el gherkin :
 Feature: Inicio de sesión
 
