@@ -28,6 +28,7 @@ dependencies {
     implementation "net.serenity-bdd:serenity-screenplay:${serenityVersion}"
     implementation "net.serenity-bdd:serenity-screenplay-webdriver:${serenityVersion}"
     implementation "io.github.bonigarcia:webdrivermanager:${webdrivermanagerVersion}"
+    implementation "net.serenity-bdd:serenity-screenplay-webdriver:${serenityVersion}"
 
     testImplementation "net.serenity-bdd:serenity-cucumber:${serenityVersion}"
     testImplementation "net.serenity-bdd:serenity-junit:${serenityVersion}"

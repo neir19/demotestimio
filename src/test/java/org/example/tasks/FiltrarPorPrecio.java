@@ -22,7 +22,7 @@ public class FiltrarPorPrecio implements Task {
 
     @Override
     public <T extends Actor> void performAs(T actor) {
-        actor.attemptsTo(FiltrarPrecio.conMaximo(40));
+        actor.attemptsTo(FiltrarPrecio.conMaximo(Integer.parseInt(rangoPrecio)));
 //        actor.attemptsTo(
 //                ScrollUp.toTheTop()
 //
