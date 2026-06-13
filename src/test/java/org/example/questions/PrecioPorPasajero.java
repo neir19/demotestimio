@@ -6,8 +6,6 @@ import net.serenitybdd.screenplay.actions.Scroll;
 import net.serenitybdd.screenplay.questions.Text;
 import org.example.Utils.Utils;
 import org.example.ui.PaginaFormulario;
-import org.openqa.selenium.devtools.v129.dom.model.ScrollOrientation;
-
 import static org.example.Utils.Utils.extraerValorNumerico;
 
 public class PrecioPorPasajero implements Question<Boolean> {

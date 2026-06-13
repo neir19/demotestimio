@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><testsuite errors="0" failures="2" name="Reserva de viaje en Testim.io" skipped="1" tests="3" time="175.03" timestamp="2026-06-13 01:45:43"><testcase name="Reservar un viaje exitosamente"><failure message="&#13;&#10;Expected: an element that is enabled&#13;&#10;     but: the element identified by [[ChromeDriver: chrome on windows (3a0684dbc518fff6630332de2b251e01)] -&gt; xpath: //button[contains(@class,'OrderSummary__pay-button')]] [PAY NOW] was not enabled" type="java.lang.AssertionError">&#13;
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><testsuite errors="0" failures="2" name="Reserva de viaje en Testim.io" skipped="1" tests="3" time="196.27" timestamp="2026-06-13 03:10:40"><testcase name="Reservar un viaje exitosamente"><failure message="&#13;&#10;Expected: an element that is enabled&#13;&#10;     but: the element identified by [[ChromeDriver: chrome on windows (bbbfb9bdd4233518990748f344804e4d)] -&gt; xpath: //button[contains(@class,'OrderSummary__pay-button')]] [PAY NOW] was not enabled" type="java.lang.AssertionError">&#13;
 Expected: an element that is enabled&#13;
-     but: the element identified by [[ChromeDriver: chrome on windows (3a0684dbc518fff6630332de2b251e01)] -&gt; xpath: //button[contains(@class,'OrderSummary__pay-button')]] [PAY NOW] was not enabled</failure><system-err>&#13;
+     but: the element identified by [[ChromeDriver: chrome on windows (bbbfb9bdd4233518990748f344804e4d)] -&gt; xpath: //button[contains(@class,'OrderSummary__pay-button')]] [PAY NOW] was not enabled</failure><system-err>&#13;
 Expected: an element that is enabled&#13;
-     but: the element identified by [[ChromeDriver: chrome on windows (3a0684dbc518fff6630332de2b251e01)] -&gt; xpath: //button[contains(@class,'OrderSummary__pay-button')]] [PAY NOW] was not enabled&#13;
+     but: the element identified by [[ChromeDriver: chrome on windows (bbbfb9bdd4233518990748f344804e4d)] -&gt; xpath: //button[contains(@class,'OrderSummary__pay-button')]] [PAY NOW] was not enabled&#13;
 org.example.tasks.RealizarPago.performAs(RealizarPago.java:20)&#13;
 org.example.stepdefinitions.ReservaViajeStepDefinitions.realizarPago(ReservaViajeStepDefinitions.java:82)&#13;
 </system-err></testcase></testsuite>

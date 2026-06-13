@@ -27,14 +27,14 @@
 <meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="bootstrap-icons/bootstrap-icons.css">
 <!-- JQuery -->
-<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script><!-- Required Stylesheets -->
+<script type="text/javascript" src="scripts/jquery-3.7.1.min.js"></script><!-- Required Stylesheets -->
 <link href="bootstrap-treeview/dist/bootstrap-treeview.min.css" rel="stylesheet">
 
 <!-- Required Javascript -->
 <script src="bootstrap-treeview/dist/bootstrap-treeview.min.js"></script><!-- DataTables -->
-<link type="text/css" href="datatables/1.13.1/datatables.min.css" rel="stylesheet" />
-<script type="text/javascript" src="datatables/1.13.1/datatables.min.js"></script>
-<script type="text/javascript" src="datatables/1.13.1/time-elapsed-dhms.js"></script>
+<link type="text/css" href="datatables/2.3.1/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/2.3.1/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/2.3.1/time-elapsed-dhms.js"></script>
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap.min.js"></script>
@@ -72,11 +72,11 @@
     Chart.register(ChartDataLabels);
 </script>
 <!-- JQuery-UI -->
-<link type="text/css" href="jqueryui/1.11.2-start/jquery-ui.min.css" rel="Stylesheet" />
-<script type="text/javascript" src="jqueryui/1.11.2-start/jquery-ui.min.js"></script><!-- DataTables -->
-<link type="text/css" href="datatables/1.13.1/datatables.min.css" rel="stylesheet" />
-<script type="text/javascript" src="datatables/1.13.1/datatables.min.js"></script>
-<script type="text/javascript" src="datatables/1.13.1/time-elapsed-dhms.js"></script>
+<link type="text/css" href="jquery-ui-1.14.1/jquery-ui.css" rel="Stylesheet" />
+<script type="text/javascript" src="jquery-ui-1.14.1/jquery-ui.js"></script><!-- DataTables -->
+<link type="text/css" href="datatables/2.3.1/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/2.3.1/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/2.3.1/time-elapsed-dhms.js"></script>
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap.min.js"></script>
@@ -108,18 +108,47 @@
 
     <script class="code" type="text/javascript">$(document).ready(function () {
 
+            $.fn.dataTable.ext.type.order['test-result-pre'] = function(data) {
+                // Extract the text from the hidden span (SUCCESS, FAILURE, etc.)
+                var match = data.match(/<span[^>]*style="display:none"[^>]*>(.*?)<\/span>/);
+                var result = match ? match[1].trim() : '';
+
+                // Define sort priority (failures first when ascending)
+                var order = {
+                    'FAILURE': 1,
+                    'ERROR': 2,
+                    'BROKEN': 3,
+                    'COMPROMISED': 4,
+                    'PENDING': 5,
+                    'IGNORED': 6,
+                    'SKIPPED': 7,
+                    'ABORTED': 8,
+                    'SUCCESS': 9
+                };
+
+                return order[result] || 99;
+            };
+
+            // Then modify your DataTable initialization
             $("#scenario-results").DataTable({
-                "order": [[0, "asc",], [1, "asc",], [2, "asc",]],
+                "order": [[0, "asc"], [1, "asc"], [2, "asc"]], // Keep your default sort order
                 "language": {
                     searchPlaceholder: "Filter",
                     search: ""
                 },
                 columnDefs: [
                     {
-                        targets: 4,
+                        targets: 4, // Started column
                         visible: false
                     },
-                    {type: 'time-elapsed-dhms', targets: 6}
+                    {
+                        type: 'time-elapsed-dhms',
+                        targets: 5 // Total Duration column (adjusted from 6 to 5)
+                    },
+                    {
+                        type: 'test-result',
+                        targets: 6 // Result column (changed from 7 to 6)
+                    }
                 ]
             })
             $("#manual-scenario-results").DataTable({
@@ -149,6 +178,27 @@
                 info: false
             });
 
+            $.fn.dataTable.ext.type.order['test-result-pre'] = function(data) {
+                // Extract the result type from the title attribute in the icon
+                var match = data.match(/title=['"]([^'"]+)['"]/);
+                var result = match ? match[1].trim() : '';
+
+                // Define sort priority (failures first when ascending)
+                var order = {
+                    'FAILURE': 1,
+                    'ERROR': 2,
+                    'BROKEN': 3,
+                    'COMPROMISED': 4,
+                    'PENDING': 5,
+                    'IGNORED': 6,
+                    'SKIPPED': 7,
+                    'ABORTED': 8,
+                    'SUCCESS': 9
+                };
+
+                return order[result] || 99;
+            };
+
             $(".feature-coverage-table").DataTable({
                 searching: true,
                 paging: false,
@@ -159,9 +209,9 @@
                 },
                 columnDefs: [
                     {
-                        targets: 2,
-                        visible: false
-                    },
+                        type: 'test-result',
+                        targets: 4  // Result column (5th column, index 4)
+                    }
                 ]
             });
 
@@ -173,12 +223,6 @@
                     searchPlaceholder: "Filter",
                     search: ""
                 },
-                columnDefs: [
-                    {
-                        targets: 2,
-                        visible: false
-                    },
-                ]
             });
         });
     </script>
@@ -221,7 +265,7 @@
             <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="bi bi-chat-text"></i> Features</a>
         </li>
     </ul>
-    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 13-06-2026 00:58:40</span>
+    <span class="date-and-time"><a href="build-info.html"><i class="bi bi-info-circle"></i></a> Report generated 13-06-2026 03:00:34</span>
     <br style="clear:left"/>
 </div>
     <div class="clr"></div>
@@ -236,7 +280,7 @@
                         <td width="375px" valign="top">
                             <div class="test-count-summary">
                                 <div class="test-count-title">
-                                    3 tests
+                                    10 tests
 
                                     
 
@@ -297,60 +341,60 @@
                     <td>
                         <i class="bi bi-card-checklist"></i> Number of Scenarios
                     </td>
-                    <td>1</td>
+                    <td>4</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-caret-right"></i> Total Number of Test Cases
                     </td>
-                    <td>3</td>
+                    <td>10</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-flag-fill"></i> Tests Started
                     </td>
-                    <td>jun. 13, 2026 00:57:50</td>
+                    <td>jun. 13, 2026 02:56:37</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-stop-circle"></i> Tests
                         Finished
                     </td>
-                    <td>jun. 13, 2026 00:58:25</td>
+                    <td>jun. 13, 2026 03:00:18</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-stopwatch"></i> Total
                         Duration
                     </td>
-                    <td>34s</td>
+                    <td> 3m 41s</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-trophy"></i> Fastest Test
                     </td>
-                    <td>8s</td>
+                    <td>0ms</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-skip-start"></i> Slowest
                         Test
                     </td>
-                    <td>13s</td>
+                    <td> 3m 40s</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-stopwatch"></i> Average
                         Execution Time
                     </td>
-                    <td>10s</td>
+                    <td> 2m 18s</td>
                 </tr>
                 <tr scope="row">
                     <td>
-                        <i class="bi bi-stopwatch-fill"></i> Total
-                        Execution Time
+                        <i class="bi bi-stopwatch-fill"></i> Cumulative Test Time
+                        <br/><small class="text-muted">(sum of all individual test durations)</small>
                     </td>
-                    <td>34s</td>
+                    <td> 10m 35s</td>
                 </tr>
                 </tbody>
             </table>
@@ -361,6 +405,43 @@
                                             </div>
                                             <div class="container-fluid">
 
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                            <h3>Test Failure Overview</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                            <h4>Most Frequent Failures</h4>
+                                                            <table class="table" style="width:40vw;">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="failure-color top-list-title">
+                                                                            <a href="4700173f71ac97a0f1d5b751da298ef12393b99bf9643a6e6aad73d7997ea7bb.html"><a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a> Assertion failed error: Expected: an element that is visible but: no matching el...</a>
+                                                                        </td>
+                                                                        <td><span
+                                                                                    class="badge failure-badge">1</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                                            <h4>Most Unstable Features</h4>
+                                                            <table class="table" style="width:40vw;">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="failure-color top-list-title">
+                                                                            <a href="1c753f9b2ef8a9c8fabfeb27e40fcfe0b60f89e56351e15dfc706a753084487d.html">Reserva de viaje en Testim.io</a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span class="badge failure-badge">33%</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                             </div>
                                             <div class="container-fluid">
         <div class="row">
@@ -374,9 +455,24 @@
                                         <i class="bi bi-tag-fill"></i> Filtrar Por Precio&nbsp;&nbsp;&nbsp;3
                                     </span>
                                     </a>
+                                    <a href="5396bb09bd9fec864c9d51d47240a59a674e1671adbae8a793cd6cfb04903ef1.html">
+                                    <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
+                                        <i class="bi bi-tag-fill"></i> Calculo Tarifas&nbsp;&nbsp;&nbsp;3
+                                    </span>
+                                    </a>
+                                    <a href="c721517496ffad35fe9a5d73f07a9bd15eb22da3cff8328e1d9f7ec70655c6b0.html">
+                                    <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
+                                        <i class="bi bi-tag-fill"></i> Login&nbsp;&nbsp;&nbsp;1
+                                    </span>
+                                    </a>
                                     <a href="773a571d092c5846a3019576b732f5fa2a9b129891c011c10cda8839a7f193e0.html">
                                     <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                        <i class="bi bi-tag-fill"></i> Regresion&nbsp;&nbsp;&nbsp;3
+                                        <i class="bi bi-tag-fill"></i> Regresion&nbsp;&nbsp;&nbsp;6
+                                    </span>
+                                    </a>
+                                    <a href="29988ff405db9a20a3e539cb16f3ce042878abe2d639f8c3f6bba0c25f7eb6a3.html">
+                                    <span class="tag-badge badge" style="background-color:#fd938e; margin:1em;padding:4px;">
+                                        <i class="bi bi-tag-fill"></i> Reserva&nbsp;&nbsp;&nbsp;3
                                     </span>
                                     </a>
                             </div>
@@ -387,8 +483,8 @@
                                 <h5 class="card-title">Context</h5>
                             <div>
                                     <a href="59736924e81ea98f655ac8eba7cd96079d8d80131e0c4360daf32a724d0b38a0.html">
-                                    <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                        <i class="bi bi-tag-fill"></i> Chrome, Windows&nbsp;&nbsp;&nbsp;3
+                                    <span class="tag-badge badge" style="background-color:#fd938e; margin:1em;padding:4px;">
+                                        <i class="bi bi-tag-fill"></i> Chrome, Windows&nbsp;&nbsp;&nbsp;10
                                     </span>
                                     </a>
                             </div>
@@ -411,22 +507,22 @@
                     <td>
                         <i class="bi bi-card-checklist"></i> Number of Scenarios
                     </td>
-                    <td>1</td>
+                    <td>4</td>
                     <td>
                         <i class="bi bi-stopwatch"></i> Total
                         Duration
                     </td>
-                    <td>34s</td>
+                    <td> 3m 41s</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-caret-right"></i> Total Number of Test Cases
                     </td>
-                    <td>3</td>
+                    <td>10</td>
                     <td>
                         <i class="bi bi-trophy"></i> Fastest Test
                     </td>
-                    <td>8s</td>
+                    <td>0ms</td>
                 </tr>
                 <tr scope="row">
                     <td>
@@ -437,30 +533,30 @@
                         <i class="bi bi-skip-start"></i> Slowest
                         Test
                     </td>
-                    <td>13s</td>
+                    <td> 3m 40s</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-flag-fill"></i> Tests Started
                     </td>
-                    <td>jun. 13, 2026 00:57:50</td>
+                    <td>jun. 13, 2026 02:56:37</td>
                     <td>
                         <i class="bi bi-stopwatch"></i> Average
                         Execution Time
                     </td>
-                    <td>10s</td>
+                    <td> 2m 18s</td>
                 </tr>
                 <tr scope="row">
                     <td>
                         <i class="bi bi-stop-circle"></i> Tests
                         Finished
                     </td>
-                    <td>jun. 13, 2026 00:58:25</td>
+                    <td>jun. 13, 2026 03:00:18</td>
                     <td>
-                        <i class="bi bi-stopwatch-fill"></i> Total
-                        Execution Time
+                        <i class="bi bi-stopwatch-fill"></i> Cumulative Test Time
+                        <br/><small class="text-muted">(sum of all individual test durations)</small>
                     </td>
-                    <td>34s</td>
+                    <td> 10m 35s</td>
                 </tr>
                 </tbody>
             </table>
@@ -476,13 +572,32 @@
                                                                     <th class="test-name-column">Scenario</th>
                                                                     <th>Context</th>
                                                                     <th>Steps</th>
-                                                                    <th>StepsText</th>
                                                                     <th>Started</th>
                                                                     <th>Total Duration</th>
                                                                     <th>Result</th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    <tr class="scenario-result SUCCESS">
+                                                                        <td>
+                                                                                <a href="#">Calculo de tarifas</a>
+                                                                        </td>
+                                                                        <td data-order="Calcular correctamente el precio para multiples pasajeros">
+                                                                            <i class="bi bi-table"
+                                                                               title="Data Driven Scenario"> <a
+                                                                                        href="2636454fb4c9621a2e9c73cff1882e08edf86a3b8561c3cacfe9abff56130c38.html">Calcular correctamente el precio para multiples pasajeros</a>
+                                                                                <br/>
+                                                                                    <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> 3 passing test cases
+                                                                                    <br/>
+                                                                        </td>
+                                                                        <td><span class='context-icon'><i class='bi bi-browser-chrome' title='Chrome'></i> <i class='bi bi-windows' title='Windows'></i></span><span style="display:none">Chrome,windows</span>
+                                                                        </td>
+                                                                        <td>4</td>
+                                                                        <td data-order="1781337397">02:56:37</td>
+                                                                        <td>2m 51s</td>
+                                                                        <td class="test-result-cell"><span style="display:none">SUCCESS</span> <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                                        </td>
+                                                                    </tr>
                                                                     <tr class="scenario-result SUCCESS">
                                                                         <td>
                                                                                 <a href="#">Filtrar destinos por precio</a>
@@ -498,14 +613,51 @@
                                                                         <td><span class='context-icon'><i class='bi bi-browser-chrome' title='Chrome'></i> <i class='bi bi-windows' title='Windows'></i></span><span style="display:none">Chrome,windows</span>
                                                                         </td>
                                                                         <td>3</td>
-                                                                        <td>Given que el usuario se encuentra en la seccion de seleccion de destinos
-When el usuario ajusta el filtro de precio maximo a &quot;&lt;precio_maximo&gt;&quot; dolares
-Then todos los resultados de viajes mostrados deben tener un costo menor o igual a &quot;&lt;precio_maximo&gt;&quot; dolares
-</td>
-                                                                        <td data-order="1781330270">00:57:50</td>
-                                                                        <td>34s 349ms</td>
-                                                                        <td><a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> <span
-                                                                                    style="display:none">SUCCESS</span>
+                                                                        <td data-order="1781337397">02:56:37</td>
+                                                                        <td>2m 31s</td>
+                                                                        <td class="test-result-cell"><span style="display:none">SUCCESS</span> <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="scenario-result SUCCESS">
+                                                                        <td>
+                                                                                <a href="#">Inicio de sesión</a>
+                                                                        </td>
+                                                                        <td data-order="Login exitoso con credenciales válidas">
+                                                                            <i class="bi bi-table"
+                                                                               title="Data Driven Scenario"> <a
+                                                                                        href="ea0e7ecaeb0f6254b7731afb3bac71b8ed907b5d2f3c753a51ac05645f73006c.html">Login exitoso con credenciales válidas</a>
+                                                                                <br/>
+                                                                                    <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a> 1 passing test case
+                                                                                    <br/>
+                                                                        </td>
+                                                                        <td><span class='context-icon'><i class='bi bi-browser-chrome' title='Chrome'></i> <i class='bi bi-windows' title='Windows'></i></span><span style="display:none">Chrome,windows</span>
+                                                                        </td>
+                                                                        <td>3</td>
+                                                                        <td data-order="1781337397">02:56:37</td>
+                                                                        <td>1m 32s</td>
+                                                                        <td class="test-result-cell"><span style="display:none">SUCCESS</span> <a href='##beforetable'><i class='bi bi-check-circle-fill success-icon ' title='SUCCESS'></i></a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="scenario-result FAILURE">
+                                                                        <td>
+                                                                                <a href="#">Reserva de viaje en Testim.io</a>
+                                                                        </td>
+                                                                        <td data-order="Reservar un viaje exitosamente">
+                                                                            <i class="bi bi-table"
+                                                                               title="Data Driven Scenario"> <a
+                                                                                        href="b6169735e079ba374c7d7bdf272b90c08906d69ac77be4041da06fe00f32f57d.html">Reservar un viaje exitosamente</a>
+                                                                                <br/>
+                                                                                    <a href='##beforetable'><i class='bi bi-skip-forward skipped-icon ' title='SKIPPED'></i></a> 1 skipped test case
+                                                                                    <br/>
+                                                                                    <a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a> 2 failing test cases
+                                                                                    <br/>
+                                                                        </td>
+                                                                        <td><span class='context-icon'><i class='bi bi-browser-chrome' title='Chrome'></i> <i class='bi bi-windows' title='Windows'></i></span><span style="display:none">Chrome,windows</span>
+                                                                        </td>
+                                                                        <td>11</td>
+                                                                        <td data-order="1781337397">02:56:37</td>
+                                                                        <td>3m 41s</td>
+                                                                        <td class="test-result-cell"><span style="display:none">FAILURE</span> <a href='##beforetable'><i class='bi bi-x-circle-fill failure-icon ' title='FAILURE'></i></a>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -535,9 +687,24 @@ Then todos los resultados de viajes mostrados deben tener un costo menor o igual
                                         <i class="bi bi-tag-fill"></i> Filtrar Por Precio&nbsp;&nbsp;&nbsp;3
                                     </span>
                                     </a>
+                                    <a href="5396bb09bd9fec864c9d51d47240a59a674e1671adbae8a793cd6cfb04903ef1.html">
+                                    <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
+                                        <i class="bi bi-tag-fill"></i> Calculo Tarifas&nbsp;&nbsp;&nbsp;3
+                                    </span>
+                                    </a>
+                                    <a href="c721517496ffad35fe9a5d73f07a9bd15eb22da3cff8328e1d9f7ec70655c6b0.html">
+                                    <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
+                                        <i class="bi bi-tag-fill"></i> Login&nbsp;&nbsp;&nbsp;1
+                                    </span>
+                                    </a>
                                     <a href="773a571d092c5846a3019576b732f5fa2a9b129891c011c10cda8839a7f193e0.html">
                                     <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                        <i class="bi bi-tag-fill"></i> Regresion&nbsp;&nbsp;&nbsp;3
+                                        <i class="bi bi-tag-fill"></i> Regresion&nbsp;&nbsp;&nbsp;6
+                                    </span>
+                                    </a>
+                                    <a href="29988ff405db9a20a3e539cb16f3ce042878abe2d639f8c3f6bba0c25f7eb6a3.html">
+                                    <span class="tag-badge badge" style="background-color:#fd938e; margin:1em;padding:4px;">
+                                        <i class="bi bi-tag-fill"></i> Reserva&nbsp;&nbsp;&nbsp;3
                                     </span>
                                     </a>
                             </div>
@@ -548,8 +715,8 @@ Then todos los resultados de viajes mostrados deben tener un costo menor o igual
                                 <h5 class="card-title">Context</h5>
                             <div>
                                     <a href="59736924e81ea98f655ac8eba7cd96079d8d80131e0c4360daf32a724d0b38a0.html">
-                                    <span class="tag-badge badge" style="background-color:#b0cf73; margin:1em;padding:4px;">
-                                        <i class="bi bi-tag-fill"></i> Chrome, Windows&nbsp;&nbsp;&nbsp;3
+                                    <span class="tag-badge badge" style="background-color:#fd938e; margin:1em;padding:4px;">
+                                        <i class="bi bi-tag-fill"></i> Chrome, Windows&nbsp;&nbsp;&nbsp;10
                                     </span>
                                     </a>
                             </div>
@@ -575,7 +742,7 @@ Then todos los resultados de viajes mostrados deben tener un costo menor o igual
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <span class="version">Serenity BDD version 4.2.14</span>
+            <span class="version">Serenity BDD version 5.3.7</span>
         </div>
     </div>
 </div>
@@ -603,7 +770,7 @@ Then todos los resultados de viajes mostrados deben tener un costo menor o igual
             datasets: [{
                 label: 'Test Results',
                 fill: false,
-                data: [3,0,0,0,0,0,0,0],
+                data: [7,0,0,1,0,2,0,0],
                 backgroundColor: ['rgba(153,204,51,0.5)','rgba(165, 199, 238, 0.5)','rgba(168, 168, 168, 0.5)','rgba(238, 224, 152, 0.75)','rgba(255, 153, 102, 0.5)','rgba(255, 22, 49, 0.5)','rgba(255, 97, 8, 0.5)','rgba(255, 104, 255, 0.5)','rgba(83, 50, 168, 0.5)'],
                 borderColor: ['rgba(153,204,51,1)','rgba(165, 199, 238, 1)','rgba(168, 168, 168, 1)','rgba(238, 224, 152, 1)','rgba(255, 153, 102, 1)','rgba(255, 22, 49, 1)','rgba(255, 97, 8, 1)','rgba(255, 104, 255, 1)','rgba(83, 50, 168, 1)'],
                 borderWidth: 1,
@@ -654,7 +821,7 @@ Then todos los resultados de viajes mostrados deben tener un costo menor o igual
                         ctx.font = fontSize + "em sans-serif";
                         ctx.textBaseline = "middle";
 
-                        var text = "100%"
+                        var text = "70%"
                         textX = 10 + Math.round((width - ctx.measureText(text).width) / 2);
                         textY = (height / 2) - 40;
 
@@ -699,7 +866,7 @@ Then todos los resultados de viajes mostrados deben tener un costo menor o igual
             datasets: [
                 {
                     label: 'Automated',
-                    data: [3,0,0,0,0,0,0,0],
+                    data: [7,0,0,1,0,2,0,0],
                     backgroundColor: ['rgba(153,204,51,0.5)','rgba(165, 199, 238, 0.5)','rgba(168, 168, 168, 0.5)','rgba(238, 224, 152, 0.75)','rgba(255, 153, 102, 0.5)','rgba(255, 22, 49, 0.5)','rgba(255, 97, 8, 0.5)','rgba(255, 104, 255, 0.5)','rgba(83, 50, 168, 0.5)'],
                     borderColor: ['rgba(153,204,51,1)','rgba(165, 199, 238, 1)','rgba(168, 168, 168, 1)','rgba(238, 224, 152, 1)','rgba(255, 153, 102, 1)','rgba(255, 22, 49, 1)','rgba(255, 97, 8, 1)','rgba(255, 104, 255, 1)','rgba(83, 50, 168, 1)'],
                     borderWidth: 1
@@ -782,7 +949,7 @@ Then todos los resultados de viajes mostrados deben tener un costo menor o igual
             datasets: [{
                 label: 'Number of tests per duration',
                 fill: false,
-                data: ['0','1','2','0','0','0','0','0'],
+                data: ['1','0','0','0','2','7','0','0'],
                 backgroundColor: 'rgba(83, 146, 255,0.5)',
                 borderColor: 'rgba(83, 146, 255, 1)',
             }]
