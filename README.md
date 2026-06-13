@@ -58,7 +58,7 @@ src/
 
 ## 📚 Documentación adicional
 
-Ver la carpeta [`doc/`](doc/) para:
-- [Implementación con IA](doc/ai-implementation.md)
-- [Casos de prueba](doc/test-cases.md)
-- [Bugs encontrados](doc/bugs.md)
+Ver la carpeta [`Docs/`](Docs/) para:
+- [Uso de IA](Docs/UsoIA.md)
+- [Casos de Prueba](Docs/Casos de Prueba.md)
+- [Reporte de Bugs](Docs/Reporte de Bugs.md)
