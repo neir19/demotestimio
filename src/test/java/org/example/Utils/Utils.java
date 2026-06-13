@@ -5,6 +5,7 @@ import java.time.Month;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 public abstract class Utils {
     public static String[] separar(String cadena) {
@@ -62,6 +63,16 @@ public abstract class Utils {
             return 0;
         }
         return Double.parseDouble(texto.replaceAll("[^\\d.]", ""));
+    }
+
+    public class ValidadorTelefono {
+
+        private static final Pattern PHONE_PATTERN =
+                Pattern.compile("^\\+1787\\d{7}$");
+
+        public static boolean esValido(String telefono) {
+            return PHONE_PATTERN.matcher(telefono).matches();
+        }
     }
 }
 

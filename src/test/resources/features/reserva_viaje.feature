@@ -19,4 +19,4 @@ Feature: Reserva de viaje en Testim.io
     Examples:
       | fechaIda   | fechaRegreso | adultos | ninos | rangoPrecio | destino | codigoPromocional | nombre      | email           | socialSecurityNumber | telefono     | rutaArchivo                 |
       | 2026-07-15 | 2026-07-22   | 2       | 1     | 1400        | Tongli  | PROMO2026         | Juan Perez  | juan@email.com  | 123-45-6789          | +17878795412 | src/test/resources/test.txt |
-      | 2026-08-1  | 2026-08-17   | 1       | 2     | 1300        | Bahamas | BIENVENIDO        | Maria Gomez | maria@email.com | 987-65-4321          | +17877654321 | src/test/resources/test.txt |
+      | 2026-08-1  | 2026-08-17   | 1       | 2     | 1300        | Tongli  | BIENVENIDO        | Maria Gomez | maria@email.com | 987-65-4321          | +7877654321  | src/test/resources/test.txt |

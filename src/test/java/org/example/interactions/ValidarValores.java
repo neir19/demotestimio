@@ -32,7 +32,7 @@ public class ValidarValores implements Interaction {
             );
 
             System.out.println("Valor: "+precio+" debe ser menor que o igual que "+valor);
-            actor.attemptsTo(Ensure.that(precio).isLessThan(valor));
+            actor.attemptsTo(Ensure.that(precio).isLessThanOrEqualTo(valor));
 
 
         }

@@ -2,6 +2,7 @@ package org.example.tasks;
 
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
+import org.example.Utils.Utils;
 import org.example.interactions.IngresarValorReact;
 import org.example.model.DatosPersonales;
 import org.example.ui.PaginaFormulario;
@@ -22,8 +23,13 @@ public class CompletarFormulario implements Task {
         actor.attemptsTo(
             IngresarValorReact.en(PaginaFormulario.CAMPO_NOMBRE, datos.nombre()),
             IngresarValorReact.en(PaginaFormulario.CAMPO_EMAIL, datos.email()),
-            IngresarValorReact.en(PaginaFormulario.CAMPO_SSN, datos.socialSecurityNumber()),
-            IngresarValorReact.en(PaginaFormulario.CAMPO_TELEFONO, datos.telefono())
-        );
+            IngresarValorReact.en(PaginaFormulario.CAMPO_SSN, datos.socialSecurityNumber()));
+
+        if(!Utils.ValidadorTelefono.esValido(datos.telefono())){
+            throw new IllegalArgumentException(
+                    "Teléfono inválido: " + datos.telefono()
+            );
+        }
+           actor.attemptsTo(IngresarValorReact.en(PaginaFormulario.CAMPO_TELEFONO, datos.telefono()));
     }
 }
