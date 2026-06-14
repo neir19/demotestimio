@@ -48,7 +48,7 @@ public class ReservaViajeStepDefinitions {
         );
     }
 
-    @Y("filtra por precio {string}")
+    @Y("filtra por precio {string} %")
     public void filtrarPorPrecio(String rangoPrecio) {
         theActorInTheSpotlight().attemptsTo(
             FiltrarPorPrecio.conRango(rangoPrecio)
