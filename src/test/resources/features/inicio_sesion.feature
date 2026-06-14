@@ -9,3 +9,4 @@ Feature: Inicio de sesión
     Examples:
       | usuario | contrasena  |
       | Név123  | password123 |
+      |3543     |232          |
