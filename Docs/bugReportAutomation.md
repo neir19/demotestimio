@@ -3,12 +3,11 @@
 ## Resumen de Ejecución de Pruebas Automatizadas
 
 | Feature | Escenarios | Pass | Fail | Skip |
-|---|---|---|---|---|---|
-| Reserva de viaje | 2 | 0 | 2 | 0 |
+|---|---|---|---|---|
+| Reserva de viaje | 3 (2 examples + 1) | 0 | 2 | 1 |
 | Inicio de sesión | 2 | 2 | 0 | 0 |
 | Filtrar destinos por precio | 3 | 3 | 0 | 0 |
 | Cálculo de tarifas | 3 | 3 | 0 | 0 |
-
 **Total: 4 features, 10 escenarios — 8 pasaron, 2 fallaron, 0 omitidos**
 
 ---
